@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@1password/sdk": "^0.1.1",
+    "twilio": "^5.2.2"
+  }
+}
