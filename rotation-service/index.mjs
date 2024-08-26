@@ -31,7 +31,7 @@ export const handler = async (event) => {
 
   const newAPIKey = await newAPIKeyRequest;
 
-  let newItem = {
+  let updatedItem = {
     ...item,
     fields: item.fields.map((f) => {
       if (f.title == "rolledKeySID") {
