@@ -46,7 +46,7 @@ export const handler = async (event) => {
     }),
   };
 
-  await client.items.put(newItem);
+  await client.items.put(updatedItem);
 
   const response = {
     statusCode: 200,
