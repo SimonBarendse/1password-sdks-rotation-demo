@@ -26,16 +26,27 @@ export const handler = async (event) => {
   // We then revoke the API Key that was rolled in the previous invocation.
 
   const item = await itemRequest;
-  const rolledKeySID = getField(item, "rolledKeySID");
+  const rolledKeySID = item.fields.find(f => f.title == "rolledKeySID").value;
   twilioClient.keys(rolledKeySID).remove();
 
   const newAPIKey = await newAPIKeyRequest;
 
-  setField(item, "rolledKeySID", getField(item, "sid"));
-  setField(item, "sid", newAPIKey.sid);
-  setField(item, "secret", newAPIKey.secret);
+  let newItem = {
+    ...item,
+    fields: item.fields.map((f) => {
+      if (f.title == "rolledKeySID") {
+        return { ...f, value: item.fields.find(f => f.title == "sid").value};
+      } else if (f.title == "sid") {
+        return { ...f, value: newAPIKey.sid};
+      } else if (f.title == "secret") {
+        return { ...f, value: newAPIKey.secret};
+      } else {
+        return f;
+      }
+    }),
+  };
 
-  await client.items.put(item);
+  await client.items.put(newItem);
 
   const response = {
     statusCode: 200,
@@ -43,30 +54,3 @@ export const handler = async (event) => {
 
   return response;
 };
-
-// TODO: This needs to be a first-class method on the SDK itself
-// (e.g. `item.setField(name, value)`), so you don't need to
-// build this yourself as an integration author.
-function setField(item, fieldName, value) {
-  for (const i in item.fields) {
-    const f = item.fields[i];
-    if (f.title == fieldName) {
-      f.value = value;
-      return item;
-    }
-  }
-  throw new Error("Field not found: " + fieldName);
-}
-
-// TODO: This needs to be a first-class method on the SDK itself
-// (e.g. `item.getField(name)`), so you don't need to build
-// this yourself as an integration author.
-function getField(item, fieldName) {
-  for (const i in item.fields) {
-    const f = item.fields[i];
-    if (f.title == fieldName) {
-      return f.value;
-    }
-  }
-  throw new Error("Field not found: " + fieldName);
-}
