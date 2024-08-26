@@ -30,12 +30,13 @@ export const handler = async (event) => {
   twilioClient.keys(rolledKeySID).remove();
 
   const newAPIKey = await newAPIKeyRequest;
+  const newRolledKeySID = item.fields.find(f => f.title == "sid").value
 
   let updatedItem = {
     ...item,
     fields: item.fields.map((f) => {
       if (f.title == "rolledKeySID") {
-        return { ...f, value: item.fields.find(f => f.title == "sid").value};
+        return { ...f, value: newRolledKeySID};
       } else if (f.title == "sid") {
         return { ...f, value: newAPIKey.sid};
       } else if (f.title == "secret") {
