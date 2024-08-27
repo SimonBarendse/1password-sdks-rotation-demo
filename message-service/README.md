@@ -17,7 +17,7 @@ It shows a Lambda function that sends an SMS message using Twilio. To authentica
 3. Upload the code in this repository to the Lambda function:
 
     ```sh
-    zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
+    zip -x img/* -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
     ```
 
 4. [Create a 1Password vault](https://support.1password.com/create-share-vaults/). You'll use this to store all secrets this service requires. I've called it `message-service`. If you use a different name for your vault, update the [secret references](https://developer.1password.com/docs/cli/secret-references/) in `index.mjs` to use your vault name instead.

@@ -30,7 +30,7 @@ For example, on a 1 hour rotation schedule, every key lives for 2 hours. 1 hour 
 
 4. Upload the code in this repository to the Lambda function:
 ```sh
-zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
+zip -x img/* -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
 ```
 
 5. [Create a 1Password Service Account](https://developer.1password.com/docs/service-accounts/get-started).
