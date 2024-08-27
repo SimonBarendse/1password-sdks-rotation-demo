@@ -13,7 +13,7 @@ export const handler = async (event) => {
   const twilioAuthToken = client.secrets.resolve("op://rotation-service/twilio/auth-token");
 
   // Fetch Twilio API Key from the message-service vault.
-  const itemRequest = client.items.get("syatozojhabsggshzzacxn7m5u", "nx4rwfhmh6q3yyflykqtzrixz4");
+  const itemRequest = client.items.get("syatozojhabsggshzzacxn7m5u", "a543h5wty3eiehuvqg5kjdabny");
 
   const twilioClient = twilio(await twilioAccountSID, await twilioAuthToken);
   const newAPIKeyRequest = twilioClient.newKeys.create({
