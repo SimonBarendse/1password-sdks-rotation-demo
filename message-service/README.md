@@ -26,6 +26,7 @@ zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-
 ![Twilio API Key stored in 1Password](img/twilio-api-key.png)
 
 6. [Create a 1Password Service Account](https://developer.1password.com/docs/service-accounts/get-started).
+
    a. It should have read access to the vault we've just created, so it can fetch the Twilio API Key.
 
     ![1Password Service Account for message service](img/1password-service-account.png)

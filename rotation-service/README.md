@@ -33,6 +33,7 @@ zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-
 ```
 
 5. [Create a 1Password Service Account](https://developer.1password.com/docs/service-accounts/get-started).
+
    a. It should have read+write access to the vault with the token it's going to rotate (in our case `message-service`) and read access to a vault that stores the root API Token (in our case `rotation-service`).
 
     ![1Password Service Account for rotation service](img/1password-service-account.png)
