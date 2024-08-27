@@ -8,14 +8,17 @@ It shows a Lambda function that sends an SMS message using Twilio. To authentica
 
 ## Deploy
 
-1. Create an AWS Lambda function. I've used `sdks-demo-message-service` for the name. If you choose a different name, update the command below.
+1. Create an [AWS Lambda function](console.aws.amazon.com/lambda/home). I've used `sdks-demo-message-service` for the name. If you choose a different name, update the command below.
+
+    ![AWS Console to create Lambda function](img/create-lambda-func.png)
 
 2. Install and authenticate the AWS CLI. I use the [1Password Shell Plugin for AWS](https://developer.1password.com/docs/cli/shell-plugins/aws/) to do so.
 
 3. Upload the code in this repository to the Lambda function:
-```sh
-zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
-```
+
+    ```sh
+    zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-demo-rotation-service --zip-file fileb://./lambdaFunc.zip --region us-east-1
+    ```
 
 4. [Create a 1Password vault](https://support.1password.com/create-share-vaults/). You'll use this to store all secrets this service requires. I've called it `message-service`. If you use a different name for your vault, update the [secret references](https://developer.1password.com/docs/cli/secret-references/) in `index.mjs` to use your vault name instead.
 
@@ -23,7 +26,7 @@ zip -r lambdaFunc.zip . && aws lambda update-function-code --function-name sdks-
    - To authenticate to Twilio, next to the API Key itself, the accountSID is required as well, so I've stored that on the 1Password item too.
    - I've also stored the identifier of the API Key itself (the `sid`) on the item. We'll use this [when we set up automatic rotation for API Keys in the next step](../rotation-service/).
 
-![Twilio API Key stored in 1Password](img/twilio-api-key.png)
+    ![Twilio API Key stored in 1Password](img/twilio-api-key.png)
 
 6. [Create a 1Password Service Account](https://developer.1password.com/docs/service-accounts/get-started).
 

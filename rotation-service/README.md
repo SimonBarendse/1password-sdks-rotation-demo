@@ -19,11 +19,12 @@ For example, on a 1 hour rotation schedule, every key lives for 2 hours. 1 hour 
 ## Deploy
 
 1. Create an [AWS Lambda function](console.aws.amazon.com/lambda/home). I've used `sdks-demo-rotation-service` for the name. If you choose a different name, update the command below.
-![AWS Console to create Lambda function](img/create-lambda-func.png)
+
+    ![AWS Console to create Lambda function](img/create-lambda-func.png)
 
 2. Under configuration, set memory to 2048MB. This function is going to do a lot of encryption/decryption to maintain [1Password's end-to-end encryption](https://1password.com/security/). This consumes quite some memory and will be very slow with the default 128MB memory.
 
-![Lambda func configuration](img/lambda-config.png) 
+    ![Lambda func configuration](img/lambda-config.png) 
 
 3. Install and authenticate the AWS CLI. I use the [1Password Shell Plugin for AWS](https://developer.1password.com/docs/cli/shell-plugins/aws/) to do so.
 
