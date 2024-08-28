@@ -12,20 +12,18 @@ export const handler = async (event) => {
   const twilioAccountSID = client.secrets.resolve("op://rotation-service/twilio/account-sid");
   const twilioAuthToken = client.secrets.resolve("op://rotation-service/twilio/auth-token");
 
-  // Fetch Twilio API Key from the message-service vault.
-  const itemRequest = client.items.get("syatozojhabsggshzzacxn7m5u", "a543h5wty3eiehuvqg5kjdabny");
-
   const twilioClient = twilio(await twilioAccountSID, await twilioAuthToken);
   const newAPIKeyRequest = twilioClient.newKeys.create({
     friendlyName: "Message Service API Key",
   });
 
+  // Fetch Twilio API Key from the message-service vault.
+  const item = await client.items.get("syatozojhabsggshzzacxn7m5u", "a543h5wty3eiehuvqg5kjdabny");
+
   // To enable zero downtime deployments, we'll leave the current key
   // active until the next rotation.
   // This gives services using the API Key the chance to load the new API Key first.
   // We then revoke the API Key that was rolled in the previous invocation.
-
-  const item = await itemRequest;
   const rolledKeySID = item.fields.find(f => f.title == "rolledKeySID").value;
   twilioClient.keys(rolledKeySID).remove();
 
